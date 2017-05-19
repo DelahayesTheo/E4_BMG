@@ -1,0 +1,74 @@
+{%  extends '::base.html.twig' %}
+{% block contenu %}
+    <div id="content">
+        <h2>Gestion des ouvrages</h2>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="erreur">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div class="info">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        <br /><br />
+        <a href="{{ path('bmg_lister_auteur') }}">
+            Gestion des ouvrages
+        </a>
+        <div id="object-list">
+            <div class="corps-form">
+                <fieldset>
+                    <legend>Consulter un ouvrage</legend>
+                    <div id="breadcrumb">
+                        <a href="{{ path('bmg_ajouter_ouvrage') }}">Ajouter</a>&nbsp;
+                        <a href="{{ path('bmg_modifier_ouvrage', {'id' : ouvrage.noOuvrage}) }}">Modifier</a>&nbsp;
+                        <a href="{{ path('bmg_supprimer_ouvrage', {'id' : ouvrage.noOuvrage  }) }}">Supprimer</a>&nbsp;
+                    </div>
+                    <table>
+                        <tr>
+                            <td class="h-entete">
+                                No
+                            </td>
+                            <td class="h-valeur">
+                                {{ ouvrage.noOuvrage }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-entete">
+                                Titre :
+                            </td>
+                            <td class="h-valeur">
+                                {{ ouvrage.titre }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-entete">
+                                Rayon :
+                            </td>
+                            <td class="h-valeur">
+                                {{ ouvrage.rayon }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-entete">
+                                Salle :
+                            </td>
+                            <td class="h-valeur">
+                                {{ ouvrage.salle }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-entete">
+                                Date d'acquisition :
+                            </td>
+                            <td class="h-valeur">
+                                {{ ouvrage.dateAcquisition|date('d/m/Y') }}
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+{% endblock %}

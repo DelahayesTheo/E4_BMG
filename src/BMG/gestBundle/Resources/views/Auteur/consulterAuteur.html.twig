@@ -1,0 +1,74 @@
+{%  extends '::base.html.twig' %}
+{% block contenu %}
+    <div id="content">
+        <h2>Gestion des auteurs</h2>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="erreur">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div class="info">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        <br /><br />
+        <a href="{{ path('bmg_lister_auteur') }}">
+            Gestion des auteurs
+        </a>
+        <div id="object-list">
+            <div class="corps-form">
+                <fieldset>
+                    <legend>Consulter un auteur</legend>
+                    <div id="breadcrumb">
+                        <a href="{{ path('bmg_ajouter_auteur') }}">Ajouter</a>&nbsp;
+                        <a href="{{ path('bmg_modifier_auteur', {'id' : auteur.idAuteur}) }}">Modifier</a>&nbsp;
+                        <a href="{{ path('bmg_supprimer_auteur', {'id' : auteur.idAuteur  }) }}">Supprimer</a>&nbsp;
+                    </div>
+                    <table>
+                        <tr>
+                            <td class="h-entete">
+                                Id
+                            </td>
+                            <td class="h-valeur">
+                                {{ auteur.idAuteur }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-entete">
+                                Nom :
+                            </td>
+                            <td class="h-valeur">
+                                {{ auteur.nomAuteur }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-entete">
+                                Prenom :
+                            </td>
+                            <td class="h-valeur">
+                                {% if auteur.prenomAuteur is not empty %}{{ auteur.prenomAuteur }}{% else %}-{% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-entete">
+                                Alias :
+                            </td>
+                            <td class="h-valeur">
+                                {% if auteur.alias is not empty %}{{ auteur.alias }}{% else %}-{% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="h-entete">
+                                Notes :
+                            </td>
+                            <td class="h-valeur">
+                                {% if auteur.notes is not empty %}{{ auteur.notes }}{% else %}-{% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+{% endblock %}

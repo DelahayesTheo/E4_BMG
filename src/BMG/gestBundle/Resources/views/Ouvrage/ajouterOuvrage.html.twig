@@ -1,0 +1,80 @@
+{% extends '::base.html.twig' %}
+{% block contenu %}
+    <div id="content">
+        <h2>Gestion des ouvrages</h2>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="erreur">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div class="info">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        <div id="object-list">
+            <div class="corps-form">
+                {{ form_start(form, {'attr' : {'class' : 'corps-form'}}) }}
+
+                {{ form_errors(form) }}
+                <fieldset>
+                    <legend>Ajouter un ouvrage</legend>
+                    <table>
+                        <tr>
+                            <td>
+                                {{ form_label(form.titre, "Titre de l'ouvrage :") }}
+                                {{ form_errors(form.titre) }}
+                            </td>
+                            <td>
+                                {{ form_widget(form.titre) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ form_label(form.genre, "Genre :") }}
+                                {{ form_errors(form.genre) }}
+                            </td>
+                            <td>
+                                {{ form_widget(form.genre) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ form_label(form.rayon, "Rayon :") }}
+                                {{ form_errors(form.rayon) }}
+                            </td>
+                            <td>
+                                {{ form_widget(form.rayon, {'attr' : {'maxlength' : 2}}) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Salle :</label></td>
+                            <td>
+                                {{ form_errors(form.salle) }}
+                                {% for choice in form.salle %}
+                                {{ form_widget(choice) }} {{ form_label(choice) }} &nbsp;
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ form_label(form.dateAcquisition, "Date d'acquisition :") }}
+                                {{ form_errors(form.dateAcquisition) }}
+                            </td>
+                            <td>
+                                {{ form_widget(form.dateAcquisition) }}
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div class="pied-form">
+                {{ form_widget(form.save, {'label': 'Ajouter'} ) }}
+                {{ form_rest(form) }}
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

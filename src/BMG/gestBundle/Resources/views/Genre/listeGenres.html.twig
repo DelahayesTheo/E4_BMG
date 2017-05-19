@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+{% block contenu %}
+    <div id="content">
+        <h2>Gestion des genres</h2>
+        <a href="{{ path('bmg_ajouter_genre') }}">
+            Ajouter un genre
+        </a>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="erreur">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div class="info">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        <div class="corps-form">
+            <fieldset>
+                <legend>Genres</legend>
+                <div id="object-list">
+                    {% if lesGenres != NULL %}
+                        {% set nbGenre = lesGenres | length %}
+                        <span>{{ nbGenre }} genre(s) trouvé(s)</span><br /><br />
+                        {% if nbGenre > 0 %}
+                            <table>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Libelle</th>
+                                </tr>
+                                {% set n = 0 %}
+                                {% for unGenre in lesGenres %}
+                                    {% if (n % 2) == 1 %}
+                                        <tr class="impair">
+                                    {% else %}
+                                        <tr class="pair">
+                                    {% endif %}
+                                        <td>
+                                            <a href="{{ path('bmg_consulter_genre', {'id': unGenre.getCodeGenre} ) }}" >
+                                                {{ unGenre.getCodeGenre }}
+                                            </a>
+                                        </td>
+                                        <td>{{ unGenre.getLibGenre }}</td>
+                                    </tr>
+                                    {% set n = n + 1 %}
+                                {% endfor %}
+                            </table>
+                        {% endif %}
+                    {% else %}
+                        Aucun genre trouvé !
+                    {% endif %}
+                </div>
+            </fieldset>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,196 @@
+<?php
+
+namespace BMG\gestBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Pret
+ *
+ * @ORM\Table(name="pret", indexes={@ORM\Index(name="fk_pret_client", columns={"no_client"}), @ORM\Index(name="fk_pret_ouvrage", columns={"no_ouvrage"})})
+ * @ORM\Entity
+ */
+class Pret
+{
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_emp", type="datetime", nullable=false)
+     */
+    private $dateEmp = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_ret", type="datetime", nullable=true)
+     */
+    private $dateRet;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="penalite", type="decimal", precision=5, scale=2, nullable=true)
+     */
+    private $penalite;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_pret", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idPret;
+
+    /**
+     * @var \BMG\gestBundle\Entity\Ouvrage
+     *
+     * @ORM\ManyToOne(targetEntity="BMG\gestBundle\Entity\Ouvrage")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="no_ouvrage", referencedColumnName="no_ouvrage")
+     * })
+     */
+    private $noOuvrage;
+
+    /**
+     * @var \BMG\gestBundle\Entity\Client
+     *
+     * @ORM\ManyToOne(targetEntity="BMG\gestBundle\Entity\Client")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="no_client", referencedColumnName="no_client")
+     * })
+     */
+    private $noClient;
+
+
+
+    /**
+     * Set dateEmp
+     *
+     * @param \DateTime $dateEmp
+     *
+     * @return Pret
+     */
+    public function setDateEmp($dateEmp)
+    {
+        $this->dateEmp = $dateEmp;
+
+        return $this;
+    }
+
+    /**
+     * Get dateEmp
+     *
+     * @return \DateTime
+     */
+    public function getDateEmp()
+    {
+        return $this->dateEmp;
+    }
+
+    /**
+     * Set dateRet
+     *
+     * @param \DateTime $dateRet
+     *
+     * @return Pret
+     */
+    public function setDateRet($dateRet)
+    {
+        $this->dateRet = $dateRet;
+
+        return $this;
+    }
+
+    /**
+     * Get dateRet
+     *
+     * @return \DateTime
+     */
+    public function getDateRet()
+    {
+        return $this->dateRet;
+    }
+
+    /**
+     * Set penalite
+     *
+     * @param string $penalite
+     *
+     * @return Pret
+     */
+    public function setPenalite($penalite)
+    {
+        $this->penalite = $penalite;
+
+        return $this;
+    }
+
+    /**
+     * Get penalite
+     *
+     * @return string
+     */
+    public function getPenalite()
+    {
+        return $this->penalite;
+    }
+
+    /**
+     * Get idPret
+     *
+     * @return integer
+     */
+    public function getIdPret()
+    {
+        return $this->idPret;
+    }
+
+    /**
+     * Set noOuvrage
+     *
+     * @param \BMG\gestBundle\Entity\Ouvrage $noOuvrage
+     *
+     * @return Pret
+     */
+    public function setNoOuvrage(\BMG\gestBundle\Entity\Ouvrage $noOuvrage = null)
+    {
+        $this->noOuvrage = $noOuvrage;
+
+        return $this;
+    }
+
+    /**
+     * Get noOuvrage
+     *
+     * @return \BMG\gestBundle\Entity\Ouvrage
+     */
+    public function getNoOuvrage()
+    {
+        return $this->noOuvrage;
+    }
+
+    /**
+     * Set noClient
+     *
+     * @param \BMG\gestBundle\Entity\Client $noClient
+     *
+     * @return Pret
+     */
+    public function setNoClient(\BMG\gestBundle\Entity\Client $noClient = null)
+    {
+        $this->noClient = $noClient;
+
+        return $this;
+    }
+
+    /**
+     * Get noClient
+     *
+     * @return \BMG\gestBundle\Entity\Client
+     */
+    public function getNoClient()
+    {
+        return $this->noClient;
+    }
+}

@@ -1,0 +1,66 @@
+{% extends '::base.html.twig' %}
+{% block contenu %}
+    <div id="content">
+        <h2>Gestion des ouvrages</h2>
+        <a href="{{ path('bmg_ajouter_ouvrage') }}">
+            Ajouter un ouvrage
+        </a>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="erreur">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div class="info">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        <div class="corps-form">
+            <fieldset>
+                <legend>Ouvrages</legend>
+                <div id="object-list">
+                    {% if lesOuvrages != NULL %}
+                        {% set nbOuvrage = lesOuvrages | length %}
+                        <span>{{ nbOuvrage }} ouvrage(s) trouvé(s)</span><br /><br />
+                        {% if nbOuvrage > 0 %}
+                            <table>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Titre</th>
+                                    <th>Genre</th>
+                                    <th>Salle</th>
+                                    <th>Rayon</th>
+                                    <th>Date d'acquisition</th>
+                                    <th>Auteur(s)</th>
+                                </tr>
+                                {% set n = 0 %}
+                                {% for unOuvrage in lesOuvrages %}
+                                    {% if (n % 2) == 1 %}
+                                        <tr class="impair">
+                                    {% else %}
+                                        <tr class="pair">
+                                    {% endif %}
+                                    <td>
+                                        <a href="{{ path('bmg_consulter_ouvrage', {'id': unOuvrage.noOuvrage} ) }}" >
+                                            {{ unOuvrage.noOuvrage }}
+                                        </a>
+                                    </td>
+                                    <td>{{ unOuvrage.titre }}</td>
+                                    <td>{{ unOuvrage.genre.codeGenre }}</td>
+                                    <td>{{ unOuvrage.salle }}</td>
+                                    <td>{{ unOuvrage.rayon }}</td>
+                                    <td>{{ unOuvrage.dateAcquisition|date('d/m/Y') }}</td>
+                                    <td>{% for auteur in unOuvrage.auteurs %}[{{ auteur.nomAuteur }}{% if auteur.prenomAuteur is not empty %} {{ auteur.prenomAuteur }}{% endif %}]{% endfor %}</td>
+                                    </tr>
+                                    {% set n = n + 1 %}
+                                {% endfor %}
+                            </table>
+                        {% endif %}
+                    {% else %}
+                        Aucun ouvrage trouvé !
+                    {% endif %}
+                </div>
+            </fieldset>
+        </div>
+    </div>
+{% endblock %}

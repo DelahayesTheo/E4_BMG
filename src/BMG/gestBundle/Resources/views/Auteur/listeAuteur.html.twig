@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+{% block contenu %}
+    <div id="content">
+        <h2>Gestion des auteurs</h2>
+        <a href="{{ path('bmg_ajouter_auteur') }}">
+            Ajouter un auteur
+        </a>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="erreur">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div class="info">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        <div class="corps-form">
+            <fieldset>
+                <legend>Auteurs</legend>
+                <div id="object-list">
+                    {% if lesAuteurs != NULL %}
+                        {% set nbAuteur = lesAuteurs | length %}
+                        <span>{{ nbAuteur }} auteur(s) trouvé(s)</span><br /><br />
+                        {% if nbAuteur > 0 %}
+                            <table>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>Alias</th>
+                                    <th>Notes</th>
+                                </tr>
+                                {% set n = 0 %}
+                                {% for unAuteur in lesAuteurs %}
+                                    {% if (n % 2) == 1 %}
+                                        <tr class="impair">
+                                    {% else %}
+                                        <tr class="pair">
+                                    {% endif %}
+                                    <td>
+                                        <a href="{{ path('bmg_consulter_auteur', {'id': unAuteur.idAuteur} ) }}" >
+                                            {{ unAuteur.idAuteur }}
+                                        </a>
+                                    </td>
+                                    <td>{{ unAuteur.nomAuteur }}</td>
+                                    <td>{{ unAuteur.prenomAuteur }}</td>
+                                    <td>{{ unAuteur.alias }}</td>
+                                    <td>{{ unAuteur.notes }}</td>
+                                    </tr>
+                                    {% set n = n + 1 %}
+                                {% endfor %}
+                            </table>
+                        {% endif %}
+                    {% else %}
+                        Aucun auteur trouvé !
+                    {% endif %}
+                </div>
+            </fieldset>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+{% block contenu %}
+    <div id="content">
+        <h2>Gestion des genres</h2>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="erreur">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div class="info">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        <div id="object-list">
+            <div class="corps-form">
+                {{ form_start(form, {'attr' : {'class' : 'corps-form'}}) }}
+
+                {{ form_errors(form) }}
+                <fieldset>
+                    <legend>Ajouter un genre</legend>
+                    <table>
+                        <tr>
+                            <td>
+                                {{ form_label(form.codeGenre, "Code Genre :") }}
+                                {{ form_errors(form.codeGenre) }}
+                            </td>
+                            <td>
+                                {{ form_widget(form.codeGenre) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ form_label(form.libGenre, "Libéllé :") }}
+                                {{ form_errors(form.libGenre) }}
+                            </td>
+                            <td>
+                                {{ form_widget(form.libGenre) }}
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div class="pied-form">
+                {{ form_widget(form.save, {'label': 'Ajouter'} ) }}
+                {{ form_rest(form) }}
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
